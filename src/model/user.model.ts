@@ -1,7 +1,7 @@
 import { model, Schema, Document, CallbackWithoutResultAndOptionalError } from 'mongoose';
 import moment from 'moment';
 import bcrypt from "bcrypt"
-import IUser from '../../interface/user.interface';
+import IUser from '../interface/user.interface';
 const userSchema = new Schema<IUser>({
   email: {
     type: String,

@@ -1,15 +1,17 @@
 import express from "express"
 import logger from "./utils/logger";
 import { dbConnection } from "./database";
-import { ConnectOptions, connect } from "mongoose";
+import { ConnectOptions, connect,set } from "mongoose";
+import IRoute from "./interface/route.interface";
 class App {
     private app: express.Application;
     private port: number;
-    constructor() {
+    constructor(routes: IRoute[]) {
         this.app = express();
         this.port = 8084;
         this.databaseConnection(); 
         this.initializeMiddleware()
+        this.initializeRoutes(routes)
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -23,6 +25,7 @@ class App {
 
     private async databaseConnection() {
         try {
+            set('strictQuery', false)
             await connect(dbConnection.uri as string, dbConnection.options as ConnectOptions)
             logger.info("▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎")
             logger.info(`▼                                   ▼`)
@@ -37,6 +40,10 @@ class App {
     private initializeMiddleware() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
+    }
+
+    private initializeRoutes(routes: IRoute[]) {
+        routes.forEach(route => this.app.use("/api/v1", route.route))
     }
 }
 
