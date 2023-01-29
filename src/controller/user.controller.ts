@@ -67,7 +67,18 @@ class UserController {
         }
     }
 
-    
+    login = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { email, password }:LoginDto = req.body
+            const user = await this.service.loginAccount({ password, email })
+            if (user) {
+                const accessToken = this.jwt.signJwt(user.username, "600s")
+                return res.status(200).send(new HttpResponse("success", "account authenticated", { accessToken }))
+            }
+        } catch (err: unknown) {
+            if (err instanceof Error) next(err)
+        }
+    }
 
    
 }

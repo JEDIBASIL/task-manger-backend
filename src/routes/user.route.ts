@@ -31,6 +31,10 @@ class UserRoute implements IRoute {
             `${this.path}/password-mail`,
             this.controller.sendResetPasswordMail
         )
+        this.route.post(
+            `${this.path}/login`,
+            this.controller.login
+        )
     }
 
 }
