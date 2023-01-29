@@ -1,7 +1,7 @@
 import { Router } from "express";
 import UserController from "../controller/user.controller";
 import { dtoValidationMiddleware } from "../middleware/dto.validator.middleware";
-import { createAccountSchema } from "../validator/validator.schema";
+import { createAccountSchema, verifyAccountSchema } from "../validator/validator.schema";
 import IRoute from "../interface/route.interface";
 
 class UserRoute implements IRoute {
@@ -18,6 +18,12 @@ class UserRoute implements IRoute {
             dtoValidationMiddleware(createAccountSchema, "body"),
             this.controller.createAccount
         )
+        this.route.post(
+            `${this.path}/verify`,
+            dtoValidationMiddleware(verifyAccountSchema, "body"),
+            this.controller.verify
+        )
+        
     }
 
 }

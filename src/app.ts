@@ -3,6 +3,8 @@ import logger from "./utils/logger";
 import { dbConnection } from "./database";
 import { ConnectOptions, connect,set } from "mongoose";
 import IRoute from "./interface/route.interface";
+import cors from "cors";
+
 class App {
     private app: express.Application;
     private port: number;
@@ -38,7 +40,7 @@ class App {
     }
 
     private initializeMiddleware() {
-        // this.app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+        this.app.use(cors({origin: '*', credentials: true}));
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
     }
@@ -50,6 +52,3 @@ class App {
 
 export default App
 
-function cors(arg0: { credentials: boolean; origin: string; }): any {
-    throw new Error("Function not implemented.");
-}
