@@ -79,6 +79,18 @@ class UserController {
             if (err instanceof Error) next(err)
         }
     }
+    resetPassword = async (req: Request, res: Response, next: NextFunction) =>{
+        try {
+            const data :ResetPasswordDto = req.body
+    
+            const { value }: JwtPayload | string = this.jwt.verifyJwt(data.token)
+            data.token = value
+            const user = await this.service.resetPassword(data)
+            if(user ) return res.status(200).send(new HttpResponse("success", "password changed"))
+        } catch (err) {
+            if (err instanceof Error) next(err)
+        }
+    }
 
    
 }

@@ -43,6 +43,16 @@ class UserService {
         if (!findByEmail.isVerified) throw new HttpException(403, "account is not verified")
         return findByEmail;
     }
+    
+    async resetPassword({ token, oldPassword, newPassword }: ResetPasswordDto): Promise<IUser> {
+        const user = await this.model.findOne({ email: token }).select("+password")
+        if (!user) throw new HttpException(404, "user not found")
+        const verifiedPassword = user.isPasswordMatch(oldPassword)
+        if (!verifiedPassword) throw new HttpException(403, "account is not verified")
+        user.password = newPassword;
+        await user.save()
+        return user;
+    }
 }
 
 export default UserService
