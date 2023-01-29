@@ -27,6 +27,10 @@ class UserRoute implements IRoute {
             `${this.path}/resend-mail`,
             this.controller.resendVerificationMail
         )
+        this.route.post(
+            `${this.path}/password-mail`,
+            this.controller.sendResetPasswordMail
+        )
     }
 
 }
