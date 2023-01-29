@@ -1,7 +1,8 @@
-import Ajv, { JSONSchemaType } from "ajv";
+import Ajv from "ajv";
 import { RequestHandler } from "express";
 import logger from "../utils/logger";
 import HttpException from "../error/HttpException";
+import ajvKeywords from "ajv-keywords"
 
 const dtoValidationMiddleware = (
     schema: any,
@@ -9,6 +10,7 @@ const dtoValidationMiddleware = (
 ): RequestHandler => {
     return (req, res, next) => {
         const ajv = new Ajv({ allErrors: true });
+        ajvKeywords(ajv);
         const valid = ajv.validate(schema, req[value]);
         if (!valid) {
             logger.error(ajv.errors)
