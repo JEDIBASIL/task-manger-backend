@@ -23,7 +23,10 @@ class UserRoute implements IRoute {
             dtoValidationMiddleware(verifyAccountSchema, "body"),
             this.controller.verify
         )
-        
+        this.route.post(
+            `${this.path}/resend-mail`,
+            this.controller.resendVerificationMail
+        )
     }
 
 }
