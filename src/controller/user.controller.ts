@@ -60,7 +60,7 @@ class UserController {
         try {
             const { email } = req.body
             const verificationToken = this.jwt.signJwt(email, "600s");
-            const emailTemplate = this.fileHandler.templateReader(`verify.hbs`, { link: `http://localhost:3000/rest-password/${verificationToken}` })
+            const emailTemplate = this.fileHandler.templateReader(`verify.hbs`, { link: `http://localhost:3000/reset-password/${verificationToken}` })
             await this.mail.sendMail(new MailOptions(email, "verify account", await emailTemplate))
             return res.status(200).send(new HttpResponse("success", "mail sent"))
         } catch (err: unknown) {

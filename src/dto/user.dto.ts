@@ -17,7 +17,6 @@ interface LoginDto {
 
 interface ResetPasswordDto {
   token: string;
-  oldPassword: string;
   newPassword: string;
 }
 
