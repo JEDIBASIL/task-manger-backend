@@ -8,11 +8,13 @@ import { CreateAccountDto, LoginDto, ResetPasswordDto } from "../dto/user.dto";
 import HttpException from "../error/HttpException";
 import IUser from "../interface/user.interface";
 import userModel from "../model/user.model";
+import logger from "../utils/logger";
 
 class UserService {
     private model = userModel;
 
     async findByEmail(email: string): Promise<IUser & Document | null> {
+        logger.info("user email => " + email)
         return await this.model.findOne({ email })
     }
     async findByUsername(username: string): Promise<IUser & Document | null> {
@@ -38,12 +40,13 @@ class UserService {
     async loginAccount(credentials: LoginDto): Promise<IUser> {
         const { password, email } = credentials
         const findByEmail = await this.model.findOne({ email }).select("+password");
+        logger.info("user => " + findByEmail)
         if (!findByEmail) throw new HttpException(404, "incorrect username or email, and password")
-        if (!findByEmail.isPasswordMatch(password)) throw new HttpException(404, "incorrect username or email, and password")
+        if (! await findByEmail.isPasswordMatch(password)) throw new HttpException(404, "incorrect username or email, and password")
         if (!findByEmail.isVerified) throw new HttpException(403, "account is not verified")
         return findByEmail;
     }
-    
+
     async resetPassword({ token, oldPassword, newPassword }: ResetPasswordDto): Promise<IUser> {
         const user = await this.model.findOne({ email: token }).select("+password")
         if (!user) throw new HttpException(404, "user not found")

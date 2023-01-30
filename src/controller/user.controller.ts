@@ -8,6 +8,7 @@ import FileHandler from "../utils/fileHandler";
 import MailOptions from "../mail/mailOption";
 import HttpException from "../error/HttpException";
 import { JwtPayload } from "jsonwebtoken";
+import logger from "../utils/logger";
 
 class UserController {
     private service = new UserService()
@@ -70,6 +71,7 @@ class UserController {
     login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { email, password }:LoginDto = req.body
+            logger.info("email => "+email)
             const user = await this.service.loginAccount({ password, email })
             if (user) {
                 const accessToken = this.jwt.signJwt(user.username, "600s")
@@ -82,7 +84,6 @@ class UserController {
     resetPassword = async (req: Request, res: Response, next: NextFunction) =>{
         try {
             const data :ResetPasswordDto = req.body
-    
             const { value }: JwtPayload | string = this.jwt.verifyJwt(data.token)
             data.token = value
             const user = await this.service.resetPassword(data)
