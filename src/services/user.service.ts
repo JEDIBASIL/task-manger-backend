@@ -40,7 +40,6 @@ class UserService {
     async loginAccount(credentials: LoginDto): Promise<IUser> {
         const { password, email } = credentials
         const findByEmail = await this.model.findOne({ email }).select("+password");
-        logger.info("user => " + findByEmail)
         if (!findByEmail) throw new HttpException(404, "incorrect username or email, and password")
         if (! await findByEmail.isPasswordMatch(password)) throw new HttpException(404, "incorrect username or email, and password")
         if (!findByEmail.isVerified) throw new HttpException(403, "account is not verified")

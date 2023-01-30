@@ -71,7 +71,6 @@ class UserController {
     login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { email, password }:LoginDto = req.body
-            logger.info("email => "+email)
             const user = await this.service.loginAccount({ password, email })
             if (user) {
                 const accessToken = this.jwt.signJwt(user.username, "600s")
