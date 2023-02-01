@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import JwtToken from '../utils/jwt';
 import HttpException from '../error/HttpException';
-import logger from '../utils/logger';
 class BaseAuth {
     protected token: string;
     protected value: string;
