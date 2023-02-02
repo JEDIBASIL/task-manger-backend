@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "npm run clean && npm run copy-files && npx tsc",
+    "build": "npm run clean && npx tsc",
     "clean": "rimraf dist/",
     "copy-files": "copyfiles -u 1 src/**/*.hbs  dist/",
-    "start": "node dist/server.js"
-
+    "start": "node dist/server.js",
+    "postbuild": "npm run copy-files"
   },
   "author": "",
   "license": "ISC",
