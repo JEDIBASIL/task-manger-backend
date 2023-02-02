@@ -15,8 +15,8 @@ class App {
         this.port = PORT || 8084;
         this.initializeMiddleware()
         this.databaseConnection(); 
-        this.initializeErrorHandling();
         this.initializeRoutes(routes)
+        this.initializeErrorHandling();
     }
     listen() {
         this.app.listen(this.port, () => {
