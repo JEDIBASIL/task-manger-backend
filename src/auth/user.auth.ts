@@ -11,7 +11,7 @@ class UserAuth extends BaseAuth {
         super(req, res)
         this.model = userModel
     }
-    static async createInstance(req: Request, res: Response, next: NextFunction) {
+    static async createInstance(req: Request | any, res: Response, next: NextFunction) {
         try {
             const user = await new UserAuth(req, res).isExist();
             req["user"] = user;

@@ -36,7 +36,7 @@ class UserController {
         try {
             const { token } = req.body
             if (!token) throw new HttpException(400, "token is required")
-            const { value }: JwtPayload | string = this.jwt.verifyJwt(token)
+            const { value }:any | string = this.jwt.verifyJwt(token)
             const isVerifiedAccount = await this.service.verify(value)
             if (isVerifiedAccount)
                 return res.status(200).send(new HttpResponse("success", "account verified successfully"))
@@ -84,7 +84,7 @@ class UserController {
     resetPassword = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const data: ResetPasswordDto = req.body
-            const { value }: JwtPayload | string = this.jwt.verifyJwt(data.token)
+            const { value }:any | string = this.jwt.verifyJwt(data.token)
             data.token = value
             const user = await this.service.resetPassword(data)
             if (user) return res.status(200).send(new HttpResponse("success", "password changed"))

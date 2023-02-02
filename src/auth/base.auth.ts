@@ -5,7 +5,7 @@ class BaseAuth {
     protected token: string;
     protected value: string;
     private jwt = new JwtToken()
-    constructor(req: Request, res: Response) {
+    constructor(req: Request | any, res: Response) {
         this.token = req.headers.authorization?.split(' ')[1] as string
         this.value = this.jwt.verifyJwt(this.token)["value"]
     }

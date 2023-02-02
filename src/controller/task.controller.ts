@@ -9,7 +9,7 @@ import ICategory from "../interface/category.interface";
 
 class TaskController {
     private service = new TaskService()
-    getTask = async (req: Request, res: Response, next: NextFunction) => {
+    getTask = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const user: IUser & Document = req["user"]
             const tasks = await this.service.getTask(user._id)
@@ -18,7 +18,7 @@ class TaskController {
             if (err instanceof Error) next(err)
         }
     }
-    addTask = async (req: Request, res: Response, next: NextFunction) => {
+    addTask = async (req: Request | any, res: Response, next: NextFunction) => {
         const newTask: addTodoDto = req.body
         const user: IUser & Document = req["user"]
         try {
@@ -29,9 +29,10 @@ class TaskController {
         }
     }
 
-    addPeople = async (req: Request, res: Response, next: NextFunction) => {
+    addPeople = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const newPeople: addPeopleDto = req.body
+            const user: IUser & Document = req["user"]
             const task: ITask = await this.service.addPeople(newPeople, user._id)
             return res.status(200).send(new HttpResponse("success", "people added", { task }))
         } catch (err: unknown) {
@@ -39,7 +40,7 @@ class TaskController {
         }
     }
 
-    removePeople = async (req: Request, res: Response, next: NextFunction) => {
+    removePeople = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const user: IUser & Document = req["user"]
             const newPeople: addPeopleDto = req.body
@@ -50,7 +51,7 @@ class TaskController {
         }
     }
 
-    deleteTask = async (req: Request, res: Response, next: NextFunction) => {
+    deleteTask = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const taskId: deleteTodoDto = req.body
             console.log(taskId)
@@ -63,7 +64,7 @@ class TaskController {
         }
     }
 
-    addCategory = async (req: Request, res: Response, next: NextFunction) => {
+    addCategory = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const newCategory: addCategoryDto = req.body
             const user: IUser & Document = req["user"]
@@ -74,7 +75,7 @@ class TaskController {
         }
     }
 
-    getCategory = async (req: Request, res: Response, next: NextFunction) => {
+    getCategory = async (req: Request | any, res: Response, next: NextFunction) => {
         try {
             const categoryId: deleteCategoryDto = req.body
             const user: IUser & Document = req["user"]
