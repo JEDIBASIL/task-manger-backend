@@ -69,7 +69,7 @@ class TaskController {
             const newCategory: addCategoryDto = req.body
             const user: IUser & Document = req["user"]
             const category: ICategory = await this.service.addCategory(newCategory, user._id)
-            return res.status(200).send(new HttpResponse("success", "category added"))
+            return res.status(200).send(new HttpResponse("success", "category added", category))
         } catch (err: unknown) {
             if (err instanceof Error) next(err)
         }
