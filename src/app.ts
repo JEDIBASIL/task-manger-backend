@@ -38,7 +38,7 @@ class App {
             logger.info(`▼                                   ▼`)
             logger.info("▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎▶︎")
         } catch (err: unknown) {
-            if (err instanceof Error) console.log(err.message)
+            if (err instanceof Error) logger.error(err.message)
         }
     }
 

@@ -18,6 +18,9 @@ const taskSchema = new Schema<ITask>({
         type: String,
         require: true
     },
+    description: {
+        type: String,
+    },
     starts: {
         type: Date,
         required: true

@@ -6,6 +6,7 @@ interface ITask{
     name: String,  
     starts: Date,
     ends: Date,
+    description:string,
     people: string[],
     isComplete:boolean,
     addedAt: Date,

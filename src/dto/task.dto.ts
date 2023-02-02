@@ -1,28 +1,37 @@
-interface addTodoDto {
+import { Schema } from "mongoose";
+
+interface AddTodoDto {
     name: string;
     starts: Date;
     ends: Date;
-    people: []
-    category: string
+    people?: [];
+    category: string;
+    description: string;
 }
 
-interface deleteTodoDto {
+interface UpdateTodoDto {
+    name: string;
+    category: string | Schema.Types.ObjectId;
+    description: string;
+}
+
+interface DeleteTodoDto {
     id: string
 }
 
-interface addCategoryDto {
+interface AddCategoryDto {
     name: string
 }
 
-interface deleteCategoryDto {
+interface DeleteCategoryDto {
     id: string
 }
 
 
-interface addPeopleDto {
+interface AddPeopleDto {
     people: string[];
     taskId: string
 }
 
 
-export { addTodoDto, deleteTodoDto, addPeopleDto, addCategoryDto, deleteCategoryDto }
+export { AddTodoDto, DeleteTodoDto, AddPeopleDto, AddCategoryDto, DeleteCategoryDto, UpdateTodoDto }
