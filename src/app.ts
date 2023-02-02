@@ -5,6 +5,7 @@ import { ConnectOptions, connect,set } from "mongoose";
 import IRoute from "./interface/route.interface";
 import cors from "cors";
 import { PORT } from "./config";
+import errorMiddleware from "./middleware/error.middleware";
 
 class App {
     private app: express.Application;
@@ -15,6 +16,7 @@ class App {
         this.initializeMiddleware()
         this.databaseConnection(); 
         this.initializeRoutes(routes)
+        this.initializeErrorHandling();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -49,6 +51,9 @@ class App {
     private initializeRoutes(routes: IRoute[]) {
         routes.forEach(route => this.app.use("/api/v1", route.route))
     }
+    initializeErrorHandling() {
+        this.app.use(errorMiddleware);
+      }
 }
 
 export default App
