@@ -1,14 +1,19 @@
 import moment from "moment";
 import { Schema, model } from "mongoose";
+import ITask from "../interface/task.interface";
 
-initialValues: {
-    name: "",
-        starting: null,
-            ends: null,
-                people: []
-},
 
-const taskSchema = new Schema({
+const taskSchema = new Schema<ITask>({
+    user: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "User"
+    },
+     category: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Category"
+    },
     name: {
         type: String,
         require: true
@@ -16,12 +21,10 @@ const taskSchema = new Schema({
     starts: {
         type: Date,
         required: true
-
     },
     ends: {
         type: Date,
         required: true
-
     },
     people: [{
         type: Schema.Types.ObjectId,
@@ -36,10 +39,11 @@ const taskSchema = new Schema({
         default: () => moment().toDate(),
     },
     updatedAt: {
-        timestamps: true
+        type: Date,
+        default: Date.now()
     }
 })
 
-const taskModel = model<Document>("Review", taskSchema);
+const taskModel = model<Document & ITask>("Task", taskSchema);
 
 export default taskModel

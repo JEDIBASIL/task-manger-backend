@@ -4,13 +4,14 @@ import { dbConnection } from "./database";
 import { ConnectOptions, connect,set } from "mongoose";
 import IRoute from "./interface/route.interface";
 import cors from "cors";
+import { PORT } from "./config";
 
 class App {
     private app: express.Application;
-    private port: number;
+    public port: string | number;
     constructor(routes: IRoute[]) {
         this.app = express();
-        this.port = 8084;
+        this.port = PORT || 8084;
         this.initializeMiddleware()
         this.databaseConnection(); 
         this.initializeRoutes(routes)
