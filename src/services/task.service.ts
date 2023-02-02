@@ -24,7 +24,7 @@ class TaskService {
         return task
     }
     async getTask(userId: string): Promise<ITask[]> {
-        return await this.tModel.find({ user: userId })
+        return await this.tModel.find({ user: userId }).populate("category")
     }
     async addPeople(newPeople: addPeopleDto, userId: string): Promise<ITask> {
         const task = await await this.isAllowed(newPeople.taskId, userId)

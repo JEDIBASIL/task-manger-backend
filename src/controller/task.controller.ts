@@ -53,6 +53,8 @@ class TaskController {
     deleteTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const taskId: deleteTodoDto = req.body
+            console.log(taskId)
+            console.log(req.body)
             const user: IUser & Document = req["user"]
             const task: ITask = await this.service.deleteTask(taskId, user._id)
             return res.status(200).send(new HttpResponse("success", "task deleted"))

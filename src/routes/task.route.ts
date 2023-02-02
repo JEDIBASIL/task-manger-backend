@@ -46,13 +46,13 @@ class TaskRoute implements IRoute {
             `${this.path}/category`,
             UserAuth.check,
             UserAuth.createInstance,
-            this.controller.removePeople
+            this.controller.getCategory
         )
         this.route.post(
             `${this.path}/category`,
             UserAuth.check,
             UserAuth.createInstance,
-            this.controller.removePeople
+            this.controller.addCategory
         )
     }
 

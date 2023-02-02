@@ -9,6 +9,11 @@ const taskSchema = new Schema<ITask>({
         required: true,
         ref: "User"
     },
+     category: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Category"
+    },
     name: {
         type: String,
         require: true

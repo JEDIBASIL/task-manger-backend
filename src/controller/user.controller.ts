@@ -9,6 +9,7 @@ import MailOptions from "../mail/mailOption";
 import HttpException from "../error/HttpException";
 import { JwtPayload } from "jsonwebtoken";
 import logger from "../utils/logger";
+import { WEB_URL } from "../config";
 
 class UserController {
     private service = new UserService()
