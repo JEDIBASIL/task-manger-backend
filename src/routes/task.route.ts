@@ -24,6 +24,13 @@ class TaskRoute implements IRoute {
             UserAuth.createInstance,
             this.controller.addTask
         )
+
+        this.route.get(
+            `${this.path}/category`,
+            UserAuth.check,
+            UserAuth.createInstance,
+            this.controller.getCategory
+        )
         
         this.route.get(
             `${this.path}/:id`,
@@ -57,12 +64,7 @@ class TaskRoute implements IRoute {
             this.controller.deleteTask
         )
 
-        this.route.get(
-            `${this.path}/category`,
-            UserAuth.check,
-            UserAuth.createInstance,
-            this.controller.getCategory
-        )
+        
         this.route.post(
             `${this.path}/category`,
             UserAuth.check,
