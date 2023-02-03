@@ -49,7 +49,7 @@ class UserController {
         try {
             const { email } = req.body
             const verificationToken = this.jwt.signJwt(email, "600s");
-            const emailTemplate = this.fileHandler.templateReader(`reset-password.hbs`, { link: `${WEB_URL}/verify/${verificationToken}` })
+            const emailTemplate = this.fileHandler.templateReader(`verify.hbs`, { link: `${WEB_URL}/verify/${verificationToken}` })
             await this.mail.sendMail(new MailOptions(email, "verify account", await emailTemplate))
             return res.status(200).send(new HttpResponse("success", "mail sent"))
         } catch (err: unknown) {
@@ -61,7 +61,7 @@ class UserController {
         try {
             const { email } = req.body
             const verificationToken = this.jwt.signJwt(email, "600s");
-            const emailTemplate = this.fileHandler.templateReader(`verify.hbs`, { link: `${WEB_URL}/reset-password/${verificationToken}` })
+            const emailTemplate = this.fileHandler.templateReader(`reset-password.hbs.hbs`, { link: `${WEB_URL}/reset-password/${verificationToken}` })
             await this.mail.sendMail(new MailOptions(email, "verify account", await emailTemplate))
             return res.status(200).send(new HttpResponse("success", "mail sent"))
         } catch (err: unknown) {
